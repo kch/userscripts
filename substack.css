@@ -1,0 +1,27 @@
+/* ==UserStyle==
+@name        substack
+@description This is your new file, start writing code
+@match       *://*.substack.com/*
+@match       *://www.piratewires.com/*
+==/UserStyle== */
+
+.main-menu-content {
+  position: fixed;
+  display: none;
+}
+
+.subscribe-widget {
+  display: none;
+}
+
+article p.button-wrapper {
+  display: none;
+}
+
+article table.post-meta.big {
+  display: none
+}
+
+div[class^="comment-"] {
+  display: none
+}
