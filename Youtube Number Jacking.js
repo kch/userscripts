@@ -7,18 +7,18 @@
 // ==/UserScript==
 
 (function(){
-  let qs         = (q)       => document.querySelector(q)
-  let qsa        = (q)       => [...document.querySelectorAll(q)]
-  let firstMatch = (q,p)     => qsa(q).filter(e => e.innerText.match(p))[0]
-  let clickSeq   = (m,...ms) => m && (m = firstMatch(...m)) && (m.click(), setTimeout(clickSeq(...ms), 250))
+  let qs         = (q)        => document.querySelector(q)
+  let qsa        = (q)        => [...document.querySelectorAll(q)]
+  let firstMatch = (q,p=/()/) => qsa(q).find(e => e.innerText.match(p))
+  let clickSeq   = (m,...ms)  => m && (m = firstMatch(...m)) && (m.click(), requestAnimationFrame(() => clickSeq(...ms)))
 
   function selectSpeed(speedRx) {
     clickSeq(
-      ['.ytp-settings-button', /()/],
-      ['.ytp-menuitem',        /^Playback speed/],
-      ['.ytp-menuitem',        speedRx],
-      ['.ytp-settings-button', /()/])
-  }
+      ['.ytp-settings-button'],
+      ['.ytp-menuitem', /^Playback speed/],
+      ['.ytp-menuitem', speedRx],
+      ['.ytp-settings-button'],
+    )}
 
   document.addEventListener("keydown", e => {
     if (!qs("#movie_player")) return          // no player

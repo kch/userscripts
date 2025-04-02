@@ -11,10 +11,10 @@
   const buttonWithBadgeSelector    = '.ytp-settings-button:is(.ytp-hd-quality-badge,.ytp-4k-quality-badge,.ytp-8k-quality-badge)'
   const buttonWithoutBadgeSelector = '.ytp-settings-button:not(.ytp-hd-quality-badge):not(.ytp-4k-quality-badge):not(.ytp-8k-quality-badge)'
 
-  let qs         = (q)       => document.querySelector(q)
-  let qsa        = (q)       => [...document.querySelectorAll(q)]
-  let firstMatch = (q,p)     => qsa(q).filter(e => e.innerText.match(p))[0]
-  let clickSeq   = (m,...ms) => m && (m = firstMatch(...m)) && (m.click(), setTimeout(clickSeq(...ms), 250))
+  let qs         = (q)        => document.querySelector(q)
+  let qsa        = (q)        => [...document.querySelectorAll(q)]
+  let firstMatch = (q,p=/()/) => qsa(q).find(e => e.innerText.match(p))
+  let clickSeq   = (m,...ms)  => m && (m = firstMatch(...m)) && (m.click(), requestAnimationFrame(() => clickSeq(...ms)))
 
   let intervalID = setInterval(()=> {
     if (!qs("#movie_player")) return            // no player
@@ -24,10 +24,11 @@
     console.log("youtube-hd: Resetting youtube to HD")
 
     clickSeq(
-      ['.ytp-settings-button', /()/],
-      ['.ytp-menuitem',        /^Quality/],
-      ['.ytp-menuitem',        /^(1440p|1080p|720p)(?! Premium)/], // Keep the top quality you want: /^(4320p|2160p|1440p|1080p|720p)(?! Premium)/
-      ['.ytp-settings-button', /()/])
+      ['.ytp-settings-button'],
+      ['.ytp-menuitem', /^Quality/],
+      ['.ytp-menuitem', /^(1440p|1080p|720p)(?! Premium)/], // Keep the top quality you want in front: /^(4320p|2160p|1440p|1080p|720p)(?! Premium)/
+      ['.ytp-settings-button'],
+    )
 
     // check that we got the hd badge or else give up, probably not hd video
     setTimeout(()=> {
