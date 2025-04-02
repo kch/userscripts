@@ -12,8 +12,6 @@
   let qs = (q) => document.querySelector(q)
   let off = () => {
     let ap = qs(autplaySelector)
-    console.log("ASDF")
-    console.log(ap)
     if (ap && (ap.ariaChecked == "true")) ap.click()
   }
 
@@ -22,4 +20,4 @@
   let mo   = new MutationObserver(off)
   mo.observe(node, { subtree: true, childList: true })
 
-  })()
+})()
