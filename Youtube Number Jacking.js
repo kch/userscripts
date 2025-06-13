@@ -18,7 +18,9 @@
       ['.ytp-menuitem', /^Playback speed/],
       ['.ytp-menuitem', speedRx],
       ['.ytp-settings-button'],
-    )}
+    )
+    setTimeout(() => qs("#movie_player").focus(), 200)
+  }
 
   document.addEventListener("keydown", e => {
     if (!qs("#movie_player")) return          // no player
