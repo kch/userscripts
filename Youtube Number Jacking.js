@@ -12,6 +12,19 @@
   let firstMatch = (q,p=/()/) => qsa(q).find(e => e.innerText.match(p))
   let clickSeq   = (m,...ms)  => m && (m = firstMatch(...m)) && (m.click(), requestAnimationFrame(() => clickSeq(...ms)))
 
+  const speedDiv = document.createElement('div');
+  speedDiv.dataset.layer = '4';
+  speedDiv.style.display = 'none';
+  speedDiv.innerHTML = `<div class="ytp-bezel-text-wrapper"><div class="ytp-bezel-text"></div></div>`;
+  qs('#movie_player').appendChild(speedDiv);
+
+  function showSpeed(speed) {
+    speedDiv.querySelector('.ytp-bezel-text').textContent = speed + 'x';
+    speedDiv.style.display = 'block';
+    clearTimeout(speedDiv.hideTimeout);
+    speedDiv.hideTimeout = setTimeout(() => speedDiv.style.display = 'none', 900);
+  }
+
   getSpeed = () => qs("#movie_player video").playbackRate
 
   function selectSpeed(speedRx) {
@@ -22,6 +35,7 @@
       ['.ytp-settings-button'],
     )
     setTimeout(() => qs("#movie_player").focus(), 100)
+    setTimeout(() => showSpeed(getSpeed()), 100)
     setTimeout(() => console.log("youtube-speed: ", getSpeed()), 100)
   }
 
