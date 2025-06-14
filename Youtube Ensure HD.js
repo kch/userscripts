@@ -16,6 +16,7 @@
   let firstMatch = (q,p=/()/) => qsa(q).find(e => e.innerText.match(p))
   let clickSeq   = (m,...ms)  => m && (m = firstMatch(...m)) && (m.click(), requestAnimationFrame(() => clickSeq(...ms)))
 
+  console.log("youtube-hd: starting…")
   let intervalID = setInterval(()=> {
     if (!qs("#movie_player")) return            // no player
     if (qs(adSelector)) return                  // don't try anything during ads
@@ -38,6 +39,7 @@
 
     // check that we got the hd badge or else give up, probably not hd video
     setTimeout(()=> {
+      console.log("youtube-hd: in timeout loop")
       if (qs(buttonWithBadgeSelector)) return
       clearInterval(intervalID)
       console.log("youtube-hd: HD content not set, aborting further attempts")
