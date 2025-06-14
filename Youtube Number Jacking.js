@@ -12,13 +12,26 @@
   let firstMatch = (q,p=/()/) => qsa(q).find(e => e.innerText.match(p))
   let clickSeq   = (m,...ms)  => m && (m = firstMatch(...m)) && (m.click(), requestAnimationFrame(() => clickSeq(...ms)))
 
-  const speedDiv = document.createElement('div');
-  speedDiv.dataset.layer = '4';
-  speedDiv.style.display = 'none';
-  speedDiv.innerHTML = `<div class="ytp-bezel-text-wrapper"><div class="ytp-bezel-text"></div></div>`;
-  qs('#movie_player').appendChild(speedDiv);
+  function mkSpeedDiv() {
+    let speedDiv = qs('#userscripts-show-speed');
+    if (speedDiv) return speedDiv;
+
+    const moviePlayer = qs('#movie_player');
+    if (!moviePlayer) return null;
+
+    speedDiv = document.createElement('div');
+    speedDiv.id             = 'userscripts-show-speed';
+    speedDiv.dataset.layer  = '4';
+    speedDiv.hidden         = true;
+    speedDiv.innerHTML      = `<div class="ytp-bezel-text-wrapper"><div class="ytp-bezel-text"></div></div>`;
+    moviePlayer.appendChild(speedDiv);
+
+    return speedDiv;
+  }
 
   function showSpeed(speed) {
+    const speedDiv = mkSpeedDiv();
+    if (!speedDiv) return;
     speedDiv.querySelector('.ytp-bezel-text').textContent = speed + 'x';
     speedDiv.hidden = false;
     clearTimeout(speedDiv.hideTimeout);
