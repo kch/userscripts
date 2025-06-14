@@ -12,6 +12,8 @@
   let firstMatch = (q,p=/()/) => qsa(q).find(e => e.innerText.match(p))
   let clickSeq   = (m,...ms)  => m && (m = firstMatch(...m)) && (m.click(), requestAnimationFrame(() => clickSeq(...ms)))
 
+  getSpeed = () => qs("#movie_player video").playbackRate
+
   function selectSpeed(speedRx) {
     clickSeq(
       ['.ytp-settings-button'],
@@ -19,7 +21,8 @@
       ['.ytp-menuitem', speedRx],
       ['.ytp-settings-button'],
     )
-    setTimeout(() => qs("#movie_player").focus(), 200)
+    setTimeout(() => qs("#movie_player").focus(), 100)
+    setTimeout(() => console.log("youtube-speed: ", getSpeed()), 100)
   }
 
   document.addEventListener("keydown", e => {
@@ -30,7 +33,7 @@
     e.stopPropagation()
     switch(e.key) {
       case "1": selectSpeed(/^Normal/); break
-      case "2": selectSpeed(/^2\b/); break
+      case "2": selectSpeed(new RegExp(`^${getSpeed() == 2 ? 1.75 : 2}`)); break
     }
   }, true)
 
