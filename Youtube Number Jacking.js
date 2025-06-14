@@ -20,9 +20,9 @@
 
   function showSpeed(speed) {
     speedDiv.querySelector('.ytp-bezel-text').textContent = speed + 'x';
-    speedDiv.style.display = 'block';
+    speedDiv.hidden = false;
     clearTimeout(speedDiv.hideTimeout);
-    speedDiv.hideTimeout = setTimeout(() => speedDiv.style.display = 'none', 900);
+    speedDiv.hideTimeout = setTimeout(() => speedDiv.hidden = true, 900);
   }
 
   getSpeed = () => qs("#movie_player video").playbackRate
