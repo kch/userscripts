@@ -11,10 +11,9 @@
   let qsa      = (q)              => [...document.querySelectorAll(q)]
   let qsMatch  = (q, p = /()/)    => qsa(q).find(e => e.innerText.match(p))
   let sleep    = (ms)             => new Promise(r => setTimeout(r, ms))
-  let delay    = async (fn, ms)   => (await sleep(ms), fn())
-  let retry    = async (fn, t, w) => fn() || t > 1 && await delay(() => retry(fn, t - 1, w), w)
+  let delay    = async (ƒ, ms)    => (await sleep(ms), ƒ())
+  let retry    = async (ƒ, t, w)  => ƒ() || t > 1 && await delay(() => retry(ƒ, t - 1, w), w)
   let clickSeq = async (x, ...xs) => x && (x = await retry(() => qsMatch(...x), 5, 20)) && (x.click(), await clickSeq(...xs))
-
 
   function mkSpeedDiv() {
     let speedDiv = qs('#userscripts-show-speed');
