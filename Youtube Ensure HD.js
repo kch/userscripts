@@ -36,6 +36,8 @@
       [".ytp-settings-button[aria-expanded='true']"], // close menu
     )
 
+    setTimeout(() => qs("#movie_player").focus(), 100)
+
     // check that we got the hd badge or else give up, probably not hd video
     await sleep(200)
     if (!qs(buttonWithBadgeSelector)) {
