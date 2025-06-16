@@ -18,7 +18,9 @@
 
   console.log("youtube-hd: starting…")
   let intervalID = setInterval(()=> {
-    if (!qs("#movie_player")) return            // no player
+    let video = qs("#movie_player video")
+    if (!video) return                          // no player
+    if (video.paused) return                    // not playing
     if (qs(adSelector)) return                  // don't try anything during ads
     if (!qs(buttonWithoutBadgeSelector)) return // don't try if we can't find a settings button without a badge (ie not present somehow, or has badge)
 
