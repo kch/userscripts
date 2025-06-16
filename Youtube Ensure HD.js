@@ -24,7 +24,7 @@
     if (qs(adSelector)) return                  // don't try anything during ads
     if (!qs(buttonWithoutBadgeSelector)) return // don't try if we can't find a settings button without a badge (ie not present somehow, or has badge)
 
-    console.log("youtube-hd: Resetting youtube to HD")
+    console.log("uyt-hd: Resetting youtube to HD")
 
     clickSeq(
       ['.ytp-settings-button'],
@@ -41,10 +41,10 @@
 
     // check that we got the hd badge or else give up, probably not hd video
     setTimeout(()=> {
-      console.log("youtube-hd: in timeout loop")
+      console.log("uyt-hd: in timeout loop")
       if (qs(buttonWithBadgeSelector)) return
       clearInterval(intervalID)
-      console.log("youtube-hd: HD content not set, aborting further attempts")
+      console.log("uyt-hd: HD content not set, aborting further attempts")
     }, 600)
 
   }, 1000)

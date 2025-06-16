@@ -49,7 +49,7 @@
     )
     setTimeout(() => qs("#movie_player").focus(), 100)
     setTimeout(() => showSpeed(getSpeed()), 100)
-    setTimeout(() => console.log("youtube-speed: ", getSpeed()), 100)
+    setTimeout(() => console.log("uyt-speed: ", getSpeed()), 100)
   }
 
   document.addEventListener("keydown", e => {
