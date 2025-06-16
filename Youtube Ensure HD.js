@@ -20,7 +20,7 @@
   let clickSeq = async (x, ...xs) => x && (x = await retry(() => qsMatch(...x), 5, 20)) && (x.click(), await clickSeq(...xs))
 
   console.log("uyt-hd: starting…")
-  let intervalID = setInterval(()=> {
+  let intervalID = setInterval(async ()=> {
     let video = qs("#movie_player video")
     if (!video) return                          // no player
     if (video.paused) return                    // not playing
@@ -37,12 +37,11 @@
     )
 
     // check that we got the hd badge or else give up, probably not hd video
-    setTimeout(()=> {
-      console.log("uyt-hd: in timeout loop")
-      if (qs(buttonWithBadgeSelector)) return
+    await sleep(200)
+    if (!qs(buttonWithBadgeSelector)) {
       clearInterval(intervalID)
       console.log("uyt-hd: HD content not set, aborting further attempts")
-    }, 600)
+    }
 
   }, 1000)
 
