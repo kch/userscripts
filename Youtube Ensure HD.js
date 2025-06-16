@@ -33,14 +33,8 @@
       ['.ytp-settings-button'],
       ['.ytp-menuitem', /^Quality/],
       ['.ytp-menuitem', /^(1440p|1080p|720p)(?! Premium)/], // Keep the top quality you want in front: /^(4320p|2160p|1440p|1080p|720p)(?! Premium)/
+      [".ytp-settings-button[aria-expanded='true']"], // close menu
     )
-
-    // just appending the area-expanded selector to the clickSeq doesn't work bc it only gets this attr
-    // after menu animation ends, so not consistently there in time
-    setTimeout(() => {
-      clickSeq([".ytp-settings-button[aria-expanded='true']"])
-      qs("#movie_player").focus()
-    }, 500)
 
     // check that we got the hd badge or else give up, probably not hd video
     setTimeout(()=> {
