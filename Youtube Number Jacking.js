@@ -6,11 +6,15 @@
 // @run-at      document-end
 // ==/UserScript==
 
-(function(){
-  let qs         = (q)        => document.querySelector(q)
-  let qsa        = (q)        => [...document.querySelectorAll(q)]
-  let firstMatch = (q,p=/()/) => qsa(q).find(e => e.innerText.match(p))
-  let clickSeq   = (m,...ms)  => m && (m = firstMatch(...m)) && (m.click(), requestAnimationFrame(() => clickSeq(...ms)))
+(async function(){
+  let qs       = (q)              => document.querySelector(q)
+  let qsa      = (q)              => [...document.querySelectorAll(q)]
+  let qsMatch  = (q, p = /()/)    => qsa(q).find(e => e.innerText.match(p))
+  let sleep    = (ms)             => new Promise(r => setTimeout(r, ms))
+  let delay    = async (fn, ms)   => (await sleep(ms), fn())
+  let retry    = async (fn, t, w) => fn() || t > 1 && await delay(() => retry(fn, t - 1, w), w)
+  let clickSeq = async (x, ...xs) => x && (x = await retry(() => qsMatch(...x), 5, 20)) && (x.click(), await clickSeq(...xs))
+
 
   function mkSpeedDiv() {
     let speedDiv = qs('#userscripts-show-speed');
@@ -40,8 +44,8 @@
 
   getSpeed = () => qs("#movie_player video").playbackRate
 
-  function selectSpeed(speedRx) {
-    clickSeq(
+  async function selectSpeed(speedRx) {
+    await clickSeq(
       ['.ytp-settings-button'],
       ['.ytp-menuitem', /^Playback speed/],
       ['.ytp-menuitem', speedRx],

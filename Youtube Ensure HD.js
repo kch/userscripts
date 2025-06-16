@@ -11,12 +11,15 @@
   const buttonWithBadgeSelector    = '.ytp-settings-button:is(.ytp-hd-quality-badge,.ytp-4k-quality-badge,.ytp-8k-quality-badge)'
   const buttonWithoutBadgeSelector = '.ytp-settings-button:not(.ytp-hd-quality-badge):not(.ytp-4k-quality-badge):not(.ytp-8k-quality-badge)'
 
-  let qs         = (q)        => document.querySelector(q)
-  let qsa        = (q)        => [...document.querySelectorAll(q)]
-  let firstMatch = (q,p=/()/) => qsa(q).find(e => e.innerText.match(p))
-  let clickSeq   = (m,...ms)  => m && (m = firstMatch(...m)) && (m.click(), requestAnimationFrame(() => clickSeq(...ms)))
+  let qs       = (q)              => document.querySelector(q)
+  let qsa      = (q)              => [...document.querySelectorAll(q)]
+  let qsMatch  = (q, p = /()/)    => qsa(q).find(e => e.innerText.match(p))
+  let sleep    = (ms)             => new Promise(r => setTimeout(r, ms))
+  let delay    = async (fn, ms)   => (await sleep(ms), fn())
+  let retry    = async (fn, t, w) => fn() || t > 1 && await delay(() => retry(fn, t - 1, w), w)
+  let clickSeq = async (x, ...xs) => x && (x = await retry(() => qsMatch(...x), 5, 20)) && (x.click(), await clickSeq(...xs))
 
-  console.log("youtube-hd: starting…")
+  console.log("uyt-hd: starting…")
   let intervalID = setInterval(()=> {
     let video = qs("#movie_player video")
     if (!video) return                          // no player
