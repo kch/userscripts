@@ -16,10 +16,11 @@ Forces highest available resolution when video quality drops below HD
 
 ### Youtube Number Jacking.js
 Prevents number keys from seeking video position, adds speed controls
+- Blocks default 1-9 seeking behavior
 - Key 1: Reset to normal speed
 - Key 2: Toggle between 1.75x and 2x speed
 - Shows speed overlay when changed
-- Blocks default 1-9 seeking behavior
+- Sets speed on shorts too
 
 ### Youtube Disable Autoplay.js
 Keeps autoplay next permanently disabled

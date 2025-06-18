@@ -43,7 +43,7 @@
 
   getSpeed = () => qs("#movie_player video").playbackRate
 
-  async function selectSpeed(speedRx) {
+  async function selectSpeed(speedRx, speed) {
     await clickSeq(
       ['.ytp-settings-button'],
       ['.ytp-menuitem', /^Playback speed/],
@@ -53,6 +53,10 @@
     setTimeout(() => qs("#movie_player").focus(), 100)
     setTimeout(() => showSpeed(getSpeed()), 100)
     setTimeout(() => console.log("uyt-speed: ", getSpeed()), 100)
+    // handle shorts too
+    const shorts = qs(".ytd-shorts video")
+    if (!shorts || shorts.paused) return
+    shorts.playbackRate = speed
   }
 
   document.addEventListener("keydown", e => {
@@ -62,8 +66,8 @@
     e.preventDefault()
     e.stopPropagation()
     switch(e.key) {
-      case "1": selectSpeed(/^Normal/); break
-      case "2": selectSpeed(new RegExp(`^${getSpeed() == 2 ? 1.75 : 2}`)); break
+      case "1": selectSpeed(/^Normal/, 1); break
+      case "2": const s = getSpeed() == 2 ? 1.75 : 2; selectSpeed(new RegExp(`^${s}`), s); break
     }
   }, true)
 
