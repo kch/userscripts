@@ -22,6 +22,11 @@ Prevents number keys from seeking video position, adds speed controls
 - Shows speed overlay when changed
 - Sets speed on shorts too
 
+### Youtube Close Chat.js
+Automatically closes live chat when it appears
+- Clicks close button in chat iframe on load
+- Fine to reopen chat afterwards
+
 ### Youtube Disable Autoplay.js
 Keeps autoplay next permanently disabled
 - Automatically clicks autoplay toggle when enabled
