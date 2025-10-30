@@ -48,8 +48,18 @@ Removes ads from video listings
 Adds button to hide delivered orders from purchase history
 - Creates "Hide delivered" button in list header
 
+### Aliexpress Such Annoy.js
+Automatically closes notification popups and subscription prompts
+- Clicks "Don't allow" on notification permission requests
+- Closes offer modals by finding and clicking close buttons
+- Runs continuously as page content loads
+
 ### Substack.css
 Removes subscription prompts and UI clutter
 - Hides main menu overlay
 - Removes subscribe widgets and buttons
 - Hides post metadata and comment sections
+
+### Youtube.css
+Removes Wikipedia propaganda boxes on YouTube
+- Hides clarify-box elements that appear on videos
