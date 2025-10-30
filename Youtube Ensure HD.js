@@ -32,7 +32,7 @@
     clickSeq(
       ['.ytp-settings-button'],
       ['.ytp-menuitem', /^Quality/],
-      ['.ytp-menuitem', /^(1440p|1080p|720p)(?! Premium)/], // Keep the top quality you want in front: /^(4320p|2160p|1440p|1080p|720p)(?! Premium)/
+      ['.ytp-menuitem', /^(1440p|1080p|720p|480p)(?! Premium)/], // Keep the top quality you want in front: /^(4320p|2160p|1440p|1080p|720p)(?! Premium)/
       [".ytp-settings-button[aria-expanded='true']"], // close menu
     )
 
