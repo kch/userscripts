@@ -1,0 +1,10 @@
+/* ==UserStyle==
+@name        Youtube
+@description Remove youtube stuff
+@match       *://www.youtube.com/*
+@match       *://youtu.be/*
+==/UserStyle== */
+
+#clarify-box {  /* wikipedia propaganda box */
+  display: none;
+}
