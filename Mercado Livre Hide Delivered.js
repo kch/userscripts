@@ -40,4 +40,19 @@
   mo1.observe(document.body, { childList: true, subtree: true });
 
 
+  //  dismiss le annoy recurring hint
+
+  const closers = () => {
+    const btn = document.evaluate(`//span[@class='andes-button__content' and contains(text(),'OK, entendi')]`,
+      document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue
+
+    if (btn) btn.click()
+  }
+
+  closers()
+
+  const mo2 = new MutationObserver(closers)
+
+  mo2.observe(document.body, { childList: true, subtree: true });
+
 })()
