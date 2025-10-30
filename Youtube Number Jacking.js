@@ -22,11 +22,20 @@
     const moviePlayer = qs('#movie_player');
     if (!moviePlayer) return null;
 
-    speedDiv = document.createElement('div');
-    speedDiv.id             = 'userscripts-show-speed';
-    speedDiv.dataset.layer  = '4';
-    speedDiv.hidden         = true;
-    speedDiv.innerHTML      = `<div class="ytp-bezel-text-wrapper"><div class="ytp-bezel-text"></div></div>`;
+    const el = (tag, props, ...children) => {
+      const {dataset, ...rest} = props;
+      const elem = Object.assign(document.createElement(tag), rest);
+      if (dataset) Object.assign(elem.dataset, dataset);
+      elem.append(...children);
+      return elem;
+    };
+
+    speedDiv = el("div", {id: "userscripts-show-speed", hidden: true, dataset: {layer: "4"}},
+      el("div", {className: "ytp-bezel-text-wrapper"},
+        el("div", {className: "ytp-bezel-text"})
+      )
+    );
+
     moviePlayer.appendChild(speedDiv);
 
     return speedDiv;
