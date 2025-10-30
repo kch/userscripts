@@ -22,14 +22,22 @@
       .forEach(x => x.style.display = "none")
   }
 
-  setTimeout(() => {
-    let container = qs(".list-header")
+  const addButton = () => {
+    let container = qs(".list-header__subtitles")
+    if (container && qs(".hide-delivered-btn")) return;
     let a = document.createElement("a")
     a.appendChild(document.createTextNode("Hide delivered"))
-    a.className = "andes-button bf-ui-button andes-button--medium andes-button--loud"
+    a.className = "andes-button bf-ui-button andes-button--medium andes-button--loud hide-delivered-btn"
     a.href = "#"
     a.onclick = hide
     container.appendChild(a)
-  }, 1500)
+  }
+
+  addButton()
+
+  const mo1 = new MutationObserver(addButton)
+
+  mo1.observe(document.body, { childList: true, subtree: true });
+
 
 })()
