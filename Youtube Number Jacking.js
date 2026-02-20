@@ -57,6 +57,7 @@
       ['.ytp-settings-button'],
       ['.ytp-menuitem', /^Playback speed/],
       ['.ytp-variable-speed-panel-button', speedRx],
+      // ['.ytp-panel-back-button'],
       ['.ytp-settings-button'],
     )
     setTimeout(() => qs("#movie_player").focus(), 100)
@@ -74,10 +75,12 @@
     if (!/^[1-9]$/.test(e.key)) return
     e.preventDefault()
     e.stopPropagation()
+    let s;
     switch(e.key) {
-      case "1": selectSpeed(/^1\.0/, 1); break
-      case "2": const s = getSpeed() == 2 ? 1.75 : 2; selectSpeed(new RegExp(`^${s}`), s); break
+      case "1": s = getSpeed() == 1 ? 1.25 : 1; break
+      case "2": s = getSpeed() == 2 ? 1.5 : 2; break
     }
+    selectSpeed(new RegExp(RegExp.escape(s.toPrecision(3).replace(/0+$/, ''))), s);
   }, true)
 
 })()
