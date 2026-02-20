@@ -8,3 +8,7 @@
 #clarify-box {  /* wikipedia propaganda box */
   display: none;
 }
+
+ytd-ad-slot-renderer, ytd-rich-item-renderer:has(ytd-ad-slot-renderer) {
+  display: none;
+}
