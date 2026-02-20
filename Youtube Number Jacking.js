@@ -56,7 +56,7 @@
     await clickSeq(
       ['.ytp-settings-button'],
       ['.ytp-menuitem', /^Playback speed/],
-      ['.ytp-menuitem', speedRx],
+      ['.ytp-variable-speed-panel-button', speedRx],
       ['.ytp-settings-button'],
     )
     setTimeout(() => qs("#movie_player").focus(), 100)
@@ -75,7 +75,7 @@
     e.preventDefault()
     e.stopPropagation()
     switch(e.key) {
-      case "1": selectSpeed(/^Normal/, 1); break
+      case "1": selectSpeed(/^1\.0/, 1); break
       case "2": const s = getSpeed() == 2 ? 1.75 : 2; selectSpeed(new RegExp(`^${s}`), s); break
     }
   }, true)
